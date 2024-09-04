@@ -226,6 +226,8 @@ dependencies = [
  "bdk_kyoto",
  "bdk_wallet",
  "tokio",
+ "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]

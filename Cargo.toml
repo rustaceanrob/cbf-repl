@@ -10,3 +10,5 @@ anyhow = "1"
 bdk_wallet = { version = "1.0.0-beta.2", features = ["rusqlite"] }
 bdk_kyoto = { git = "https://github.com/ValuedMammal/bdk-kyoto", rev = "7dc4597be981bc69b71d040a4fb072a63a079947" }
 tokio = { version = "1.37", default-features = false, features = ["rt-multi-thread", "macros", "io-std"] }
+tracing = { version = "0.1" }
+tracing-subscriber = { version = "0.3" }
