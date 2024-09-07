@@ -25,3 +25,8 @@ Stop the program:
 ```
 shutdown
 ```
+
+To follow along with a live coding demo:
+```
+git clone -b template https://github.com/rustaceanrob/cbf-repl.git
+```
