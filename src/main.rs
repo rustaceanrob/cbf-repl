@@ -25,6 +25,10 @@ async fn read_lines(stdin: &mut Lines<BufReader<Stdin>>) -> Option<String> {
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    // Better console logging
+    let subscriber = tracing_subscriber::FmtSubscriber::new();
+    tracing::subscriber::set_global_default(subscriber)?;
+
     // Set up the terminal input
     let stdin = tokio::io::stdin();
     let reader = BufReader::new(stdin);
@@ -33,7 +37,7 @@ async fn main() -> anyhow::Result<()> {
     // Open a connection to the wallet database
     let mut conn = Connection::open(".bdk-wallet.sqlite")?;
 
-    // Attempt to load the wallet from the database connection.
+    // Attempt to load the wallet from the database connection. 
     let wallet_opt = Wallet::load()
         .descriptor(KeychainKind::External, Some(RECEIVE))
         .descriptor(KeychainKind::Internal, Some(CHANGE))
@@ -60,7 +64,7 @@ async fn main() -> anyhow::Result<()> {
     tokio::task::spawn(async move { node.run().await });
 
     // Log events that are issued from the node to the user
-    let logger = FileLogger::new();
+    let logger = TraceLogger::new();
 
     // Wait for an update for the wallet from the node
     let wallet_update = client.update(&logger).await;
@@ -78,7 +82,7 @@ async fn main() -> anyhow::Result<()> {
             update = client.update(&logger) => {
                 if let Some(update) = update {
                     wallet.apply_update(update)?;
-                    wallet.persist(&mut conn)?;
+                    wallet.persist(&mut conn)?;                    
                 }
             },
             // Wait for a command from the user
