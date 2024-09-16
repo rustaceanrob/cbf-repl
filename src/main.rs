@@ -6,6 +6,8 @@ use rusqlite::Connection;
 
 const RECEIVE: &str = "tr([7d94197e/86'/1'/0']tpubDCyQVJj8KzjiQsFjmb3KwECVXPvMwvAxxZGCP9XmWSopmjW3bCV3wD7TgxrUhiGSueDS1MU5X1Vb1YjYcp8jitXc5fXfdC1z68hDDEyKRNr/0/*)";
 const CHANGE: &str = "tr([7d94197e/86'/1'/0']tpubDCyQVJj8KzjiQsFjmb3KwECVXPvMwvAxxZGCP9XmWSopmjW3bCV3wD7TgxrUhiGSueDS1MU5X1Vb1YjYcp8jitXc5fXfdC1z68hDDEyKRNr/1/*)";
+
+// Available commmands in the terminal
 const CMD_RECV: &str = "address";
 const CMD_BALANCE: &str = "balance";
 const CMD_SHUTDOWN: &str = "shutdown";
@@ -45,7 +47,7 @@ async fn main() -> anyhow::Result<()> {
             .create_wallet(&mut conn)?,
     };
 
-    let (mut node, mut client) = LightClientBuilder::new(&wallet)
+    let (node, mut client) = LightClientBuilder::new(&wallet)
         // When recovering a wallet, specify the height to start scanning
         .scan_after(170_000)
         // The number of remote connections to maintain
@@ -84,6 +86,7 @@ async fn main() -> anyhow::Result<()> {
                         CMD_RECV => {
                             let balance = wallet.reveal_next_address(KeychainKind::External);
                             tracing::info!("Your next address: {}", balance);
+                            wallet.persist(&mut conn)?;
                         },
                         CMD_BALANCE => {
                             let balance = wallet.balance().total().to_sat();

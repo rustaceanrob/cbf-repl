@@ -80,9 +80,9 @@ checksum = "9d297deb1925b89f2ccc13d7635fa0714f12c87adce1c75356b39ca9b7178567"
 
 [[package]]
 name = "bdk_chain"
-version = "0.18.0"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4658f922245892aafb2e9cdfd6674b10b8057b81f0cc2cc5920d4c3a434f4311"
+checksum = "4e553c45ffed860aa7e0c6998c3a827fcdc039a2df76307563208ecfcae2f750"
 dependencies = [
  "bdk_core",
  "bitcoin",
@@ -94,9 +94,9 @@ dependencies = [
 
 [[package]]
 name = "bdk_core"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "78dd27e151907dadd43f2d17d14ff613331ffd6c3eb8838d0b38976c8588b2fa"
+checksum = "5c0b45300422611971b0bbe84b04d18e38e81a056a66860c9dd3434f6d0f5396"
 dependencies = [
  "bitcoin",
  "hashbrown 0.9.1",
@@ -106,7 +106,7 @@ dependencies = [
 [[package]]
 name = "bdk_kyoto"
 version = "0.1.0"
-source = "git+https://github.com/ValuedMammal/bdk-kyoto?rev=7dc4597be981bc69b71d040a4fb072a63a079947#7dc4597be981bc69b71d040a4fb072a63a079947"
+source = "git+https://github.com/ValuedMammal/bdk-kyoto?rev=58c6ee90206d9527ae78b664533aba0d8f8d2cb4#58c6ee90206d9527ae78b664533aba0d8f8d2cb4"
 dependencies = [
  "bdk_chain",
  "bdk_wallet",
@@ -117,9 +117,9 @@ dependencies = [
 
 [[package]]
 name = "bdk_wallet"
-version = "1.0.0-beta.2"
+version = "1.0.0-beta.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b38aa12ef660265f50802437496cb18bda14774683ab736ba7a7e584885a91c"
+checksum = "5aeb48cd8e0a15d0bf7351fc8c30e44c474be01f4f98eb29f20ab59b645bd29c"
 dependencies = [
  "bdk_chain",
  "bitcoin",
@@ -332,7 +332,7 @@ checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
 [[package]]
 name = "kyoto-cbf"
 version = "0.1.0"
-source = "git+https://github.com/rustaceanrob/kyoto?rev=4c625f0ae4a5d9df5d50e184ce6a6aff6b78579d#4c625f0ae4a5d9df5d50e184ce6a6aff6b78579d"
+source = "git+https://github.com/rustaceanrob/kyoto?rev=d9ab1ce3fdfee863f152fe145596b7f93171b5aa#d9ab1ce3fdfee863f152fe145596b7f93171b5aa"
 dependencies = [
  "bip324",
  "bitcoin",
