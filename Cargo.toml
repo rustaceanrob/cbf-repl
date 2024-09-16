@@ -7,8 +7,8 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1"
-bdk_wallet = { version = "1.0.0-beta.4", features = ["rusqlite"] }
-bdk_kyoto = { git = "https://github.com/ValuedMammal/bdk-kyoto", rev = "58c6ee90206d9527ae78b664533aba0d8f8d2cb4" }
+bdk_wallet = { version = "1.0.0-beta.5", features = ["rusqlite"] }
+bdk_kyoto = { version = "0.1.0" }
 tokio = { version = "1.37", default-features = false, features = ["rt-multi-thread", "macros", "io-std"] }
 
 # Logging dependencies
