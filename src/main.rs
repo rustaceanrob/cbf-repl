@@ -10,6 +10,8 @@ use tokio::{
     select,
 };
 
+const WALLET_FILE: &str = ".bdk-wallet.sqlite";
+
 const RECEIVE: &str = "tr([7d94197e/86'/1'/0']tpubDCyQVJj8KzjiQsFjmb3KwECVXPvMwvAxxZGCP9XmWSopmjW3bCV3wD7TgxrUhiGSueDS1MU5X1Vb1YjYcp8jitXc5fXfdC1z68hDDEyKRNr/0/*)";
 const CHANGE: &str = "tr([7d94197e/86'/1'/0']tpubDCyQVJj8KzjiQsFjmb3KwECVXPvMwvAxxZGCP9XmWSopmjW3bCV3wD7TgxrUhiGSueDS1MU5X1Vb1YjYcp8jitXc5fXfdC1z68hDDEyKRNr/1/*)";
 
@@ -31,7 +33,7 @@ async fn main() -> anyhow::Result<()> {
     let mut lines = reader.lines();
 
     // Open a connection to the wallet database
-    let mut conn = Connection::open(".bdk-wallet.sqlite")?;
+    let mut conn = Connection::open(WALLET_FILE)?;
 
     // Attempt to load the wallet from the database connection.
     let wallet_opt = Wallet::load()
@@ -71,8 +73,9 @@ async fn main() -> anyhow::Result<()> {
         wallet.persist(&mut conn)?;
     }
 
+    tracing::info!("Ready for commands...");
+
     loop {
-        tracing::info!("Awaiting the next command...");
         select! {
             // Wait for new blocks and apply any updates
             update = client.update(&logger) => {
