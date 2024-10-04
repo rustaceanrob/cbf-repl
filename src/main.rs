@@ -35,6 +35,9 @@ async fn main() -> anyhow::Result<()> {
     // Open a connection to the wallet database
     let mut conn = Connection::open(WALLET_FILE)?;
 
+    // Log events that are issued from the node to the user
+    let logger = FileLogger::new();
+
     // Attempt to load the wallet from the database connection.
     let wallet_opt = Wallet::load()
         .descriptor(KeychainKind::External, Some(RECEIVE))
@@ -53,16 +56,19 @@ async fn main() -> anyhow::Result<()> {
 
     let (node, mut client) = LightClientBuilder::new(&wallet)
         // When recovering a wallet, specify the height to start scanning
-        .scan_after(170_000)
+        .scan_after(160_000)
         // The number of remote connections to maintain
         .connections(1)
         .build()?;
 
     // Run the node on a separate task
-    tokio::task::spawn(async move { node.run().await });
-
-    // Log events that are issued from the node to the user
-    let logger = FileLogger::new();
+    tokio::task::spawn(async move { 
+        if let Err(e) = node.run().await {
+            tracing::error!("{e}");
+            return Err(e);
+        }
+        return Ok(())
+    });
 
     // Wait for an update for the wallet from the node
     let wallet_update = client.update(&logger).await;
