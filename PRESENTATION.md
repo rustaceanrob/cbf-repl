@@ -1,9 +1,6 @@
 ---
 theme:
   name: terminal-light
-  override:
-    code:
-        background: false
 ---
 
 What are compact block filters?
