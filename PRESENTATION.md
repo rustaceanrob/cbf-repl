@@ -6,9 +6,12 @@ theme:
 What are compact block filters?
 ===
 
-* Compact block filters compress the `scriptPubKey` of a block with some false-positive rate when querying
-* Full nodes are required to index transactions and find `scriptPubKey` given an `COutPoint`
-* Filters can be precomputed before clients request them, and are computed full nodes for each new block
+* Compact block filters compress all of the `scriptPubKey` of a block into a small byte array
+* For each transaction, we use the each output `scriptPubKey` and the `scriptPubKey` of the outputs referrenced in `OutPoint`s
+* The filter allows us to ask this question: is a `scriptPubKey` conatined in this block? `true` or `false`
+* There is some false-positive rate (`true` when the script is not actually there)
+* Full nodes are required to index transactions and find `scriptPubKey` given an `OutPoint`
+* Filters can be precomputed before clients request them
 * Excludes `OP_RETURN` and coinbase transactions
 
 <!-- end_slide -->
@@ -17,7 +20,7 @@ People can lie
 ===
 
 * Nodes may lie by omission and exclude `scriptPubKey` from their filter computation
-* To catch this earlier rather than later, nodes commit to the filter they computed by hashing the filter along with the previous filter commitment
+* To catch this earlier rather than later, nodes commit to the filter they computed by hashing the filter along with the previous filter commitment (`commitment X` ~= `hash(filter | commitment X - 1`)
 
 <!-- end_slide -->
 
@@ -50,6 +53,12 @@ Checkout the template branch:
 
 `
 git clone -b template https://github.com/rustaceanrob/cbf-repl.git
+`
+
+Or if you just want to run the code:
+
+`
+git clone https://github.com/rustaceanrob/cbf-repl.git && cd cbf-repl && cargo run --release
 `
 
 <!-- end_slide -->
@@ -130,7 +139,7 @@ tokio::task::spawn(async move {
 Workshop
 ===
 
-When an update is ready, we can apply it to the wallet and persist the changes:
+When a wallet update is ready, we can apply it to the wallet and persist the changes:
 
 ```rust
 // Wait for an update for the wallet from the node
@@ -188,3 +197,14 @@ loop {
 ```
 
 <!-- end_slide -->
+
+Call to action 
+===
+
+For on-chain wallets:
+
+* Check out the integration with BDK at `https://github.com/bitcoindevkit/bdk-kyoto`
+* Be on the lookout for integrations with the BDK-FFI (Swift, Kotlin, Python, JVM?) `https://github.com/bitcoindevkit/bdk-ffi`
+
+For LN and other uses:
+* Check out the implementation at `https://github.com/rustaceanrob/kyoto`
