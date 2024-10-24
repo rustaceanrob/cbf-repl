@@ -27,13 +27,12 @@ People can lie
 The steps
 ===
 
-Download:
-
-* block headers and choose the chain of most work
-* commitments to compact block filters
-* compact block filters
+* find peers that serve compact block filters
+* fetch block headers and choose the chain of most work
+* get commitments to compact block filters
+* download compact block filters
 * check the filter for matching scripts
-* download the blocks and find our transactions
+* request the blocks and find our transactions
 
 <!-- end_slide -->
 
@@ -198,7 +197,7 @@ loop {
 
 <!-- end_slide -->
 
-Call to action 
+Start building!
 ===
 
 For on-chain wallets:
