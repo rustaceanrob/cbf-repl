@@ -107,7 +107,9 @@ async fn main() -> anyhow::Result<()> {
                             client.shutdown().await?;
                             return Ok(());
                         }
-                        _ => continue
+                        _ => {
+                            tracing::error!("Unknown command")
+                        }
                     }
                 }
             }
