@@ -56,7 +56,7 @@ async fn main() -> anyhow::Result<()> {
 
     let (node, mut client) = LightClientBuilder::new(&wallet)
         // When recovering a wallet, specify the height to start scanning
-        .scan_after(160_000)
+        .scan_after(170_000)
         // The number of remote connections to maintain
         .connections(1)
         .build()?;
