@@ -175,9 +175,10 @@ loop {
 			if let Some(line) = lines {
 				match line.as_str() {
 					CMD_RECV => {
-						let balance = wallet.reveal_next_address(KeychainKind::External);
-						tracing::info!("Your next address: {}", balance);
+						let address_info = wallet.reveal_next_address(KeychainKind::External);
+						tracing::info!("Your next address: {}", address_info.address);
 						wallet.persist(&mut conn)?;
+						client.add_script(address_info.address).await?;
 					},
 					CMD_BALANCE => {
 						let balance = wallet.balance().total().to_sat();
